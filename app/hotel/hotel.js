@@ -10,11 +10,35 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 }])
 
 .controller('HotelCtrl', ['$scope', function(sc) {
-	sc.customer
+	// Hotel objects
+	sc.guest
 	sc.room
-	sc.roomTypes = ['Standard', 'Superior', 'Deluxe', 'Junior Suite', 'Suite Room', 'Presidential']
 
+	// Hotel form's configs
+	sc.guestCount = function() {
+		return [1,2,3,4,5,6,7,8,9,10]
+	}
+
+	sc.roomTypes = function() {
+		return ['Standard', 'Superior', 'Deluxe', 'Junior Suite', 'Suite Room', 'Presidential']
+	}
+
+	// Stepper's configs
+	sc.selectedStep = 0
+	sc.step = { 
+		one: { completed: false },
+		two: { completed: false }
+	}
+
+	// Methods
 	sc.calculate = function() {
-		console.log(sc.customer)
+		sc.selectedStep = 2
+		sc.step.one.completed = true
+		console.log(sc.guest)
+	}
+
+	sc.clear = function() {
+		sc.guest = null
+		sc.room = null
 	}
 }]);

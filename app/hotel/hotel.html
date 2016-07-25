@@ -10,27 +10,31 @@
 	md-input-container.md-icon-float > md-icon {
 		top: 8px;
 	}
+
+	div.rent-duration {
+		margin-bottom: 36px;
+	}
 </style>
 
 <h2>Unpam Hotel</h2>
 
 <md-content layout="row" layout-align="center">
 	<md-card flex="50" >
-		<md-steppers md-dynamic-height md-stretch-steppers="always">
-		  <md-step label="Input Data" md-complete="step1.completed"  ng-disabled="step1.disabled">
+		<md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="selectedStep">
+		  <md-step label="Input Data" md-complete="step.one.completed" ng-disabled="step.one.disabled">
 		    <md-content layout="column">
 		    	
 		    	<!-- Reservee Name -->
 		    	<div layout="row">
 			    	<md-input-container flex class="md-icon-float md-block">
 				      <label>First Name</label>
-				      <md-icon class="md-primary">face</md-icon>
-				      <input ng-model="customer.firstName" type="text">
+				      <md-icon class="md-primary">person</md-icon>
+				      <input ng-model="guest.firstName" type="text">
 				    </md-input-container>
 
 				    <md-input-container flex="50" class="md-icon-float md-block">
 				      <label>Last Name</label>
-				      <input ng-model="customer.lastName" type="text">
+				      <input ng-model="guest.lastName" type="text">
 				    </md-input-container>
 			    </div>
 
@@ -39,50 +43,50 @@
 		        <label>Room Type</label>
 				    <md-icon class="md-primary">home</md-icon>
 		        <md-select ng-model="room.type">
-		          <md-option ng-repeat="room in roomTypes" value="{{room}}">
+		          <md-option ng-repeat="room in roomTypes()" value="{{room}}">
 		            {{room}}
 		          </md-option>
 		        </md-select>
 		      </md-input-container>
 
-	    		<br/><br/>
-	    		<!-- tanggal check-in dan check-out -->
-	    		Check-in
-	    		<md-datepicker ng-model="myDate" md-placeholder="Check-in"></md-datepicker>
-	    		Check-out
-	    		<md-datepicker ng-model="myDate" md-placeholder="Check-out"></md-datepicker>
-	    		<br/><br/>
-	    		<!-- Jumlah orang -->
-	    		Room for :
-	    		<br/>
-	    		Adult(s) : 
-	    		<select>
-	    			<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-	    		</select>
-	    		Child(ren) : 
-	    		<select>
-	    			<option>0</option>
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-	    		</select>
-	    		<br/><br/>
+		      <!-- Rent Duration -->
+		      <div class="rent-duration" layout="row">
+			    	<md-datepicker flex ng-model="room.checkIn" md-placeholder="Check In" md-open-on-focus></md-datepicker>
+	    			<md-datepicker flex ng-model="room.checkOut" md-placeholder="Check Out" md-open-on-focus></md-datepicker>
+			    </div>
+
+			    <!-- Guest Number -->
+			    <div layout="row">
+				    <md-input-container flex="45">
+			        <label>Adult Guests</label>
+					    <md-icon class="md-primary">face</md-icon>
+			        <md-select ng-model="guest.count.adult">
+			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
+			            {{count}}
+			          </md-option>
+			        </md-select>
+			      </md-input-container>
+			      <div flex></div>
+			      <md-input-container flex="45">
+			        <label>Children Guests</label>
+					    <md-icon class="md-primary">child_care</md-icon>
+			        <md-select ng-model="guest.count.child">
+			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
+			            {{count}}
+			          </md-option>
+			        </md-select>
+			      </md-input-container>
+			    </div>
+
 		    </md-content>
 
 		    <md-step-actions layout="row" layout-align="end center">
-          <md-button class="md-warn">CANCEL</md-button>
-          <md-button class="md-primary md-raised" ng-click="calculate()">NEXT</md-button>
+          <md-button class="md-warn" ng-click="clear()">CLEAR</md-button>
+          <md-button class="md-primary md-raised" ng-click="calculate()">OK</md-button>
       	</md-step-actions>
 		  </md-step>
-		  <md-step label="Payment" md-complete="step2.completed"  ng-disabled="step2.disabled">
-		    <md-content>Payment Result</md-content>
+		  <md-step label="Payment" md-complete="step.two.completed" ng-disabled="step.two.disabled">
+		    <md-content>TODO: Payment Result</md-content>
 		  </md-step>
 		</md-steppers>
 	</md-card>
