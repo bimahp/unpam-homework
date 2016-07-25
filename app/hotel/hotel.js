@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.hotel', ['ngRoute'])
+angular.module('myApp.hotel', ['ngRoute', 'ngMaterial'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/hotel', {
