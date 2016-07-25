@@ -9,6 +9,12 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
   });
 }])
 
-.controller('HotelCtrl', [function() {
+.controller('HotelCtrl', ['$scope', function(sc) {
+	sc.customer
+	sc.room
+	sc.roomTypes = ['Standard', 'Superior', 'Deluxe', 'Junior Suite', 'Suite Room', 'Presidential']
 
+	sc.calculate = function() {
+		console.log(sc.customer)
+	}
 }]);
