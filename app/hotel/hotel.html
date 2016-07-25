@@ -1,8 +1,29 @@
-<form>
-	<h2>Test Hotel</h2><br />
-	Pilih jenis kamar
-	<select>
-		<option>Kamar hantu</option>
-		<option>Kamar kosong</option>
-	</select>
-</form>
+<style>
+	h2 {
+		text-align: center;
+	}
+
+	md-steppers md-content {
+		padding: 24px;
+	}
+</style>
+
+<h2>Unpam Hotel</h2>
+
+<md-content layout="row" layout-align="center">
+	<md-card flex="50" >
+		<md-steppers md-dynamic-height md-stretch-steppers="always">
+		  <md-step label="Input Data" md-complete="step1.completed"  ng-disabled="step1.disabled">
+		    <md-content>Form Here</md-content>
+
+		    <md-step-actions layout="row" layout-align="end center">
+          <md-button class="md-warn">CANCEL</md-button>
+          <md-button class="md-primary md-raised">NEXT</md-button>
+      </md-step-actions>
+		  </md-step>
+		  <md-step label="Payment" md-complete="step2.completed"  ng-disabled="step2.disabled">
+		    <md-content>Payment Result</md-content>
+		  </md-step>
+		</md-steppers>
+	</md-card>
+</md-content>
