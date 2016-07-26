@@ -5,11 +5,14 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/hotel', {
     templateUrl: 'hotel/hotel.html',
-    controller: 'HotelCtrl'
+    controller: 'HotelController'
   });
 }])
 
-.controller('HotelCtrl', ['$scope', function(sc) {
+.controller('HotelController', ['$scope', function(sc) {
+	// Locals
+	var presentDate = new Date()
+
 	// Hotel objects
 	sc.guest
 	sc.room
@@ -21,6 +24,10 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 
 	sc.roomTypes = function() {
 		return ['Standard', 'Superior', 'Deluxe', 'Junior Suite', 'Suite Room', 'Presidential']
+	}
+
+	sc.getPresentDate = function() {
+		return presentDate
 	}
 
 	// Stepper's configs

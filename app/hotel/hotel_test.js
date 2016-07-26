@@ -1,28 +1,19 @@
 'use strict';
 
-describe('myApp.hotel module', function() {
-
+describe('HotelController', function() {
   beforeEach(module('myApp.hotel'));
 
-  describe('hotel controller', function(){
+  var $controller;
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var hotelCtrl = $controller('HotelCtrl');
-      expect(hotelCtrl).toBeDefined();
-    }));
+  beforeEach(inject(function(_$controller_){
+    $controller = _$controller_;
+  }));
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var hotelCtrl = $controller('HotelCtrl');
-      expect(hotelCtrl).toBeDefined();
-    }));
-
-    it('should ....', inject(function($controller) {
-      //spec body
-      var hotelCtrl = $controller('HotelCtrl');
-      expect(hotelCtrl).toBeDefined();
-    }));
-
+  describe('sc.guestCount', function() {
+    it('has 10 elements of data', function() {
+      var $scope = {};
+      var controller = $controller('HotelController', { $scope: $scope });
+      expect($scope.guestCount().length).toEqual(10);
+    });
   });
 });

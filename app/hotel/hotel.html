@@ -51,8 +51,8 @@
 
 		      <!-- Rent Duration -->
 		      <div class="rent-duration" layout="row">
-			    	<md-datepicker flex ng-model="room.checkIn" md-placeholder="Check In" md-open-on-focus></md-datepicker>
-	    			<md-datepicker flex ng-model="room.checkOut" md-placeholder="Check Out" md-open-on-focus></md-datepicker>
+			    	<md-datepicker flex md-min-date="getPresentDate()" ng-model="room.checkIn" md-placeholder="Check In" md-open-on-focus></md-datepicker>
+	    			<md-datepicker flex md-min-date="getPresentDate()" ng-model="room.checkOut" md-placeholder="Check Out" md-open-on-focus></md-datepicker>
 			    </div>
 
 			    <!-- Guest Number -->
