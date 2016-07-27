@@ -15,15 +15,22 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 
 	// Hotel objects
 	sc.guest
-	sc.room
+	sc.rooms = [
+		{ 'name': 'Standard', 'capacity': 2, 'price': 300000 },
+		{ 'name': 'Superior', 'capacity': 4, 'price': 550000 },
+		{ 'name': 'Deluxe', 'capacity': 4, 'price': 600000 },
+		{ 'name': 'Junior Suite', 'capacity': 2, 'price': 250000 },
+		{ 'name': 'Suite Room', 'capacity': 6, 'price': 1200000 },
+		{ 'name': 'Presidential', 'capacity': 8, 'price': 3000000 }
+	]
 
 	// Hotel form's configs
 	sc.guestCount = function() {
 		return [1,2,3,4,5,6,7,8,9,10]
 	}
 
-	sc.roomTypes = function() {
-		return ['Standard', 'Superior', 'Deluxe', 'Junior Suite', 'Suite Room', 'Presidential']
+	sc.getRooms = function() {
+		return sc.rooms
 	}
 
 	sc.getPresentDate = function() {
@@ -41,7 +48,8 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 	sc.calculate = function() {
 		sc.selectedStep = 2
 		sc.step.one.completed = true
-		console.log(sc.guest)
+		
+		// Calculate
 	}
 
 	sc.clear = function() {

@@ -3,12 +3,25 @@
 		text-align: center;
 	}
 
+	h5.md-title {
+		text-align: center;
+	}
+
+	h5.md-subhead {
+		text-align: center;
+    margin-top: -24px;
+	}
+
 	md-steppers md-content {
 		padding: 24px;
 	}
 
 	md-input-container.md-icon-float > md-icon {
 		top: 8px;
+	}
+
+	md-icon.checklist {
+		font-size: 5em;
 	}
 
 	div.rent-duration {
@@ -27,38 +40,38 @@
 		    	<!-- Reservee Name -->
 		    	<div layout="row">
 			    	<md-input-container flex class="md-icon-float md-block">
-				      <label>First Name</label>
+				      <label>Nama Depan</label>
 				      <md-icon class="md-primary">person</md-icon>
 				      <input ng-model="guest.firstName" type="text">
 				    </md-input-container>
 
 				    <md-input-container flex="50" class="md-icon-float md-block">
-				      <label>Last Name</label>
+				      <label>Nama Belakang</label>
 				      <input ng-model="guest.lastName" type="text">
 				    </md-input-container>
 			    </div>
 
 			    <!-- Room Type -->
 			    <md-input-container flex>
-		        <label>Room Type</label>
+		        <label>Tipe Kamar</label>
 				    <md-icon class="md-primary">home</md-icon>
-		        <md-select ng-model="room.type">
-		          <md-option ng-repeat="room in roomTypes()" value="{{room}}">
-		            {{room}}
+		        <md-select ng-model="guest.room">
+		          <md-option ng-repeat="room in getRooms()" value="{{room}}">
+		            {{room.name}} <em><span class="md-body-2">(kapasitas: {{room.capacity}})</span></em>
 		          </md-option>
 		        </md-select>
 		      </md-input-container>
 
 		      <!-- Rent Duration -->
 		      <div class="rent-duration" layout="row">
-			    	<md-datepicker flex md-min-date="getPresentDate()" ng-model="room.checkIn" md-placeholder="Check In" md-open-on-focus></md-datepicker>
-	    			<md-datepicker flex md-min-date="getPresentDate()" ng-model="room.checkOut" md-placeholder="Check Out" md-open-on-focus></md-datepicker>
+			    	<md-datepicker flex md-min-date="getPresentDate()" ng-model="guest.checkIn" md-placeholder="Check In" md-open-on-focus></md-datepicker>
+	    			<md-datepicker flex md-min-date="getPresentDate()" ng-model="guest.checkOut" md-placeholder="Check Out" md-open-on-focus></md-datepicker>
 			    </div>
 
 			    <!-- Guest Number -->
 			    <div layout="row">
 				    <md-input-container flex="45">
-			        <label>Adult Guests</label>
+			        <label>Tamu Dewasa</label>
 					    <md-icon class="md-primary">face</md-icon>
 			        <md-select ng-model="guest.count.adult">
 			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
@@ -68,7 +81,7 @@
 			      </md-input-container>
 			      <div flex></div>
 			      <md-input-container flex="45">
-			        <label>Children Guests</label>
+			        <label>Tamu Anak</label>
 					    <md-icon class="md-primary">child_care</md-icon>
 			        <md-select ng-model="guest.count.child">
 			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
@@ -86,7 +99,15 @@
       	</md-step-actions>
 		  </md-step>
 		  <md-step label="Payment" md-complete="step.two.completed" ng-disabled="step.two.disabled">
-		    <md-content>TODO: Payment Result</md-content>
+		    <md-content>
+			    <div layout="column" layout-align="center">
+			    	<md-icon class="md-primary checklist">check_circle</md-icon>
+			    	<h5 class="md-title">Booking Selesai</h5>
+			    	<h5 class="md-subhead">Silahkan menyelesaikan proses pembayaran</h5>
+			    </div>
+			    <md-divider></md-divider>
+
+		    </md-content>
 		  </md-step>
 		</md-steppers>
 	</md-card>
