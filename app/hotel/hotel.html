@@ -27,6 +27,19 @@
 	div.rent-duration {
 		margin-bottom: 36px;
 	}
+
+	md-card.md-dark-grey-theme {
+		color: #FFF;
+	}
+
+	.md-subhead.display {
+		display: inline-block;
+		width: 200px;
+	}
+
+	.result-divider {
+		margin-top: 24px;
+	}
 </style>
 
 <h2>Unpam Hotel</h2>
@@ -56,7 +69,7 @@
 		        <label>Tipe Kamar</label>
 				    <md-icon class="md-primary">home</md-icon>
 		        <md-select ng-model="guest.room">
-		          <md-option ng-repeat="room in getRooms()" value="{{room}}">
+		          <md-option ng-repeat="room in getRooms()" ng-value="room">
 		            {{room.name}} <em><span class="md-body-2">(kapasitas: {{room.capacity}})</span></em>
 		          </md-option>
 		        </md-select>
@@ -74,7 +87,7 @@
 			        <label>Tamu Dewasa</label>
 					    <md-icon class="md-primary">face</md-icon>
 			        <md-select ng-model="guest.count.adult">
-			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
+			          <md-option ng-repeat="count in guestCount()" ng-value="count">
 			            {{count}}
 			          </md-option>
 			        </md-select>
@@ -84,7 +97,7 @@
 			        <label>Tamu Anak</label>
 					    <md-icon class="md-primary">child_care</md-icon>
 			        <md-select ng-model="guest.count.child">
-			          <md-option ng-repeat="count in guestCount()" value="{{count}}">
+			          <md-option ng-repeat="count in guestCount()" ng-value="count">
 			            {{count}}
 			          </md-option>
 			        </md-select>
@@ -106,6 +119,41 @@
 			    	<h5 class="md-subhead">Silahkan menyelesaikan proses pembayaran</h5>
 			    </div>
 			    <md-divider></md-divider>
+			    <md-card md-theme="dark-grey" md-theme-watch>
+		        <md-card-content layout="column">
+		        	<span> <!-- Guest's Name -->
+		        		<span class="md-subhead display">Nama Tamu</span>: <span class="md-body-1">{{getName()}}</span>
+		        	</span>
+		        	<span> <!-- Room Name -->
+		        		<span class="md-subhead display">Kamar</span>: <span class="md-body-1">{{getRoomName()}}</span>
+		        	</span>
+		        	<span> <!-- Room Capacity -->
+		        		<span class="md-subhead display">Kapasitas Kamar</span>: <span class="md-body-1">{{getRoomCapacity()}}</span>
+		        	</span>
+		        	<span> <!-- Room Guests -->
+		        		<span class="md-subhead display">Jumlah Tamu</span>: <span class="md-body-1">{{getRoomGuest()}}</span>
+		        	</span>
+		        	<span> <!-- Rent Duration -->
+		        		<span class="md-subhead display">Lama Menginap</span>: <span class="md-body-1">{{getRentDuration()}}</span>
+		        	</span>
+
+		        	<span class="result-divider"></span>
+
+		        	<span> <!-- Rent Price -->
+		        		<span class="md-subhead display">Biaya Kamar</span>: <span class="md-body-1">{{getPriceRent()}}</span>
+		        	</span>
+		        	<span ng-show="isGuestOverlimit()"> <!-- Overcharge Price -->
+		        		<span class="md-subhead display">Biaya Kelebihan Tamu</span>: <span class="md-body-1">{{getPriceOvercharge()}}</span>
+		        	</span>
+		        	<span ng-show="isDiscounted()" > <!-- Overcharge Price -->
+		        		<span class="md-subhead display">Diskon Hotel</span>: <span class="md-body-1">{{getPriceDiscount()}}</span>
+		        	</span>
+		        	<md-divider></md-divider>
+		        	<span> <!-- Total Price -->
+		        		<span class="md-subhead display">Total Harga</span>: <span class="md-body-1">{{getPriceTotal()}}</span>
+		        	</span>
+		        </md-card-content>
+		      </md-card>
 
 		    </md-content>
 		  </md-step>

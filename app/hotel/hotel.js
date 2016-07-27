@@ -9,12 +9,17 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
   });
 }])
 
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+})
+
 .controller('HotelController', ['$scope', function(sc) {
 	// Locals
 	var presentDate = new Date()
 
 	// Hotel objects
 	sc.guest
+	sc.price = { 'rent': 0, 'overcharge': 0, 'discount': 0, 'total': 0 }
 	sc.rooms = [
 		{ 'name': 'Standard', 'capacity': 2, 'price': 300000 },
 		{ 'name': 'Superior', 'capacity': 4, 'price': 550000 },
@@ -26,7 +31,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 
 	// Hotel form's configs
 	sc.guestCount = function() {
-		return [1,2,3,4,5,6,7,8,9,10]
+		return [0,1,2,3,4,5,6,7,8,9,10]
 	}
 
 	sc.getRooms = function() {
@@ -37,6 +42,57 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 		return presentDate
 	}
 
+	sc.getName = function() {
+		if(sc.guest) return sc.guest.firstName + " " + sc.guest.lastName
+	}
+
+	sc.getRoomName = function() {
+		if(sc.guest && sc.guest.room) return sc.guest.room.name
+	}
+
+	sc.getRoomCapacity = function() {
+		if(sc.guest && sc.guest.room) return sc.guest.room.capacity + " orang"
+	}
+
+	sc.getRoomGuest = function() {
+		if(!sc.guest || !sc.guest.count) return
+
+		return getTotalGuest() + " orang";
+	}
+
+	sc.isDiscounted = function() {
+		return sc.price.discount > 0
+	}
+
+	sc.getPriceDiscount = function() {
+		return sc.price.discount
+	}
+
+	sc.getRentDuration = function() {
+		if(!sc.guest || !sc.guest.checkIn || !sc.guest.checkOut) return
+		return getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime()) + " hari"
+	}
+
+	sc.getPriceTotal =function() {
+		return sc.price.total
+	}
+
+	sc.getPriceRent = function() {
+		return sc.price.rent
+	}
+
+	sc.getPriceOvercharge = function() {
+		return sc.price.overcharge
+	}
+
+	sc.isGuestOverlimit = function() {
+		if(sc.guest && sc.guest.room) return getTotalGuest() > sc.guest.room.capacity
+	}
+
+	sc.getOverGuest = function() {
+		return overGuest + " orang"
+	}
+
 	// Stepper's configs
 	sc.selectedStep = 0
 	sc.step = { 
@@ -45,11 +101,46 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 	}
 
 	// Methods
+	var overGuest = function() {
+		if(sc.guest && sc.guest.room) return getTotalGuest() - sc.guest.room.capacity
+	}
+
+	var getTotalGuest = function() {
+		if(!sc.guest.count) return
+		var adult = sc.guest.count.adult ? sc.guest.count.adult : 0
+		var child = sc.guest.count.child ? sc.guest.count.child : 0
+
+		return adult + child
+	}
+
+	var getDayDifference = function(endDate, startDate) {
+		var timeDiff = Math.abs(endDate - startDate)
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+		return diffDays
+	}
+
 	sc.calculate = function() {
 		sc.selectedStep = 2
 		sc.step.one.completed = true
 		
 		// Calculate
+		sc.price.rent = sc.guest.room.price * getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
+		sc.price.total += sc.price.rent
+
+		if(sc.isGuestOverlimit) {
+			sc.price.overcharge = overGuest() * 25000 + (sc.price.rent * 0.1 * overGuest())
+			sc.price.total += sc.price.overcharge
+		}
+
+		var dayDiffs = getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
+		if(dayDiffs >= 3) {
+			if(sc.isGuestOverlimit) {
+				sc.price.discount = sc.price.total * 0.05
+			} else {
+				sc.price.discount = sc.price.total * 0.1
+			}
+		}
+		sc.price.total -= sc.price.discount
 	}
 
 	sc.clear = function() {
