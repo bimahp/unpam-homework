@@ -127,14 +127,14 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 		sc.price.rent = sc.guest.room.price * getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
 		sc.price.total += sc.price.rent
 
-		if(sc.isGuestOverlimit) {
+		if(sc.isGuestOverlimit()) {
 			sc.price.overcharge = overGuest() * 25000 + (sc.price.rent * 0.1 * overGuest())
 			sc.price.total += sc.price.overcharge
 		}
 
 		var dayDiffs = getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
 		if(dayDiffs >= 3) {
-			if(sc.isGuestOverlimit) {
+			if(sc.isGuestOverlimit()) {
 				sc.price.discount = sc.price.total * 0.05
 			} else {
 				sc.price.discount = sc.price.total * 0.1
