@@ -14,6 +14,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 })
 
 .controller('HotelController', ['$scope', function(sc) {
+	var self = this
 	// Locals
 	var presentDate = new Date()
 
@@ -70,7 +71,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 
 	sc.getRentDuration = function() {
 		if(!sc.guest || !sc.guest.checkIn || !sc.guest.checkOut) return
-		return getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime()) + " hari"
+		return self.getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime()) + " hari"
 	}
 
 	sc.getPriceTotal =function() {
@@ -90,7 +91,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 	}
 
 	sc.getOverGuest = function() {
-		return overGuest + " orang"
+		return self.overGuest + " orang"
 	}
 
 	// Stepper's configs
@@ -101,7 +102,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 	}
 
 	// Methods
-	var overGuest = function() {
+	self.overGuest = function() {
 		if(sc.guest && sc.guest.room) return getTotalGuest() - sc.guest.room.capacity
 	}
 
@@ -113,7 +114,7 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 		return adult + child
 	}
 
-	var getDayDifference = function(endDate, startDate) {
+	self.getDayDifference = function(endDate, startDate) {
 		var timeDiff = Math.abs(endDate - startDate)
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
 		return diffDays
@@ -124,15 +125,15 @@ angular.module('myApp.hotel', ['ngRoute', 'ngMaterial', 'md-steppers'])
 		sc.step.one.completed = true
 		
 		// Calculate
-		sc.price.rent = sc.guest.room.price * getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
+		sc.price.rent = sc.guest.room.price * self.getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
 		sc.price.total += sc.price.rent
 
 		if(sc.isGuestOverlimit()) {
-			sc.price.overcharge = overGuest() * 25000 + (sc.price.rent * 0.1 * overGuest())
+			sc.price.overcharge = self.overGuest() * 25000 + (sc.price.rent * 0.1 * self.overGuest())
 			sc.price.total += sc.price.overcharge
 		}
 
-		var dayDiffs = getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
+		var dayDiffs = self.getDayDifference(sc.guest.checkOut.getTime(), sc.guest.checkIn.getTime())
 		if(dayDiffs >= 3) {
 			if(sc.isGuestOverlimit()) {
 				sc.price.discount = sc.price.total * 0.05
