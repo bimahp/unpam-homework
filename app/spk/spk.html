@@ -1,0 +1,123 @@
+<style>
+  h2 {
+    text-align: center;
+  }
+
+  h5.md-title {
+    text-align: center;
+  }
+
+  h5.md-subhead {
+    text-align: center;
+    margin-top: -24px;
+  }
+
+  md-steppers md-content {
+    padding: 24px;
+  }
+
+  md-input-container.md-icon-float > md-icon {
+    top: 8px;
+  }
+
+  md-icon.checklist {
+    font-size: 5em;
+  }
+
+  div.rent-duration {
+    margin-bottom: 36px;
+  }
+
+  md-card.md-dark-grey-theme {
+    color: #FFF;
+  }
+
+  .md-subhead.display {
+    display: inline-block;
+    width: 200px;
+  }
+
+  .result-divider {
+    margin-top: 24px;
+  }
+</style>
+
+<h2>Unpam SPK Metode WP</h2>
+
+<md-content layout="row" layout-align="center">
+  <md-card flex="80" >
+    <md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="vm.selectedStep">
+      <md-step label="Input Alternatif" md-complete="vm.step.one.completed" ng-disabled="vm.step.one.disabled">
+        <md-content layout="column">
+          
+          <table style="min-width: 800px" ng-table="vm.candidatesTableParams" class="table table-condensed table-bordered table-striped" show-filter="false">
+            <tr ng-repeat="candidate in $data">
+              <td title="'Nama'" filter="{ name: 'text'}" sortable="'name'">
+                {{candidate.name}}</td>
+              <td title="'Kriteria 1'" filter="{ c1: 'number'}" sortable="'c1'">
+                {{candidate.c1}}</td>
+              <td title="'Kriteria 2'" filter="{ c2: 'number'}" sortable="'c2'">
+                {{candidate.c2}}</td>
+              <td title="'Kriteria 3'" filter="{ c3: 'number'}" sortable="'c3'">
+                {{candidate.c3}}</td>
+              <td title="'Kriteria 4'" filter="{ c4: 'number'}" sortable="'c4'">
+                {{candidate.c4}}</td>
+              <td title="'Kriteria 5'" filter="{ c5: 'number'}" sortable="'c5'">
+                {{candidate.c5}}</td>
+              <td title="'Kriteria 6'" filter="{ c6: 'number'}" sortable="'c6'">
+                {{candidate.c6}}</td>
+            </tr>
+          </table>
+
+          <table style="min-width: 400px" ng-table="vm.weightsTableParams" class="table table-condensed table-bordered table-striped" show-filter="false">
+            <tr ng-repeat="weight in $data">
+              <td title="'Kode'">
+                {{weight.code}}</td>
+              <td title="'Kriteria'">
+                {{weight.desc}}</td>
+              <td title="'Tipe'">
+                {{weight.type}}</td>
+              <td title="'Bobot'">
+                {{weight.point}}</td>
+            </tr>
+          </table>
+
+        </md-content>
+
+        <md-step-actions layout="row" layout-align="end center">
+          <md-button class="md-primary md-raised" ng-click="vm.calculate()">HITUNG</md-button>
+        </md-step-actions>
+      </md-step>
+      <md-step label="Hasil" md-complete="vm.step.two.completed" ng-disabled="vm.step.two.disabled">
+        <md-content flex layout="column">
+
+          <div layout="row">
+            <div flex="50">
+              <h4 style="text-align: center">Normalisasi Bobot</h4>
+              <canvas id="doughnut" class="chart chart-doughnut" chart-data="vm.normalizedWeightData" chart-labels="vm.normalizedWeightLabels">
+              </canvas>
+            </div>
+
+            <div flex="50">
+            </div>
+          </div>
+
+          <md-divider style="margin: 30px 0"></md-divider>
+
+          <h4>Vektor S</h4>
+          <canvas flex="50" style="height: 200px" id="bar" class="chart chart-bar" chart-data="vm.sVectorValues" chart-series="vm.sVectorSeries" chart-labels="vm.svVectorLabels">
+          </canvas>
+
+          <md-divider style="margin: 30px 0"></md-divider>
+
+          <h4>Vektor V</h4>
+          <canvas flex="50" style="height: 200px" id="bar" class="chart chart-bar" chart-data="vm.vVectorValues" chart-series="vm.vVectorSeries" chart-labels="vm.svVectorLabels">
+          </canvas>
+
+          <h3 style="text-align: center">Jadi hasil seleksi karyawan teladan dengan skor tertinggi adalah <em>{{vm.bestCandidate.name}}</em> dengan nilai ranking <em>{{vm.bestCandidate.vVector}}</em></h3>
+
+        </md-content>
+      </md-step>
+    </md-steppers>
+  </md-card>
+</md-content>

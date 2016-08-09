@@ -4,10 +4,11 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.hotel',
+  'myApp.spk',
   'myApp.version'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+  $locationProvider.hashPrefix('!')
 
-  $routeProvider.otherwise({redirectTo: '/hotel'});
-}]);
+  $routeProvider.otherwise({redirectTo: '/spk'})
+}])

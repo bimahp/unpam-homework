@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
   <link rel="stylesheet" href="bower_components/md-steppers/dist/md-steppers.min.css">
+  <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="components/iconfont/material-icons.css">
   <style>
     [ng-cloak] {
@@ -37,12 +39,15 @@
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/md-steppers/dist/md-steppers.min.js',
+      'bower_components/ng-table/dist/ng-table.min.js',
+      'components/js/Chart.min.js',
+      'components/js/angular-chart.min.js',
       'app.js',
       'hotel/hotel.js',
       'components/version/version.js',
       'components/version/version-directive.js',
       'components/version/interpolate-filter.js'
-    ], function() {
+    ], function () {
       // when all is done, execute bootstrap angular application
       angular.bootstrap(document, ['myApp']);
     });

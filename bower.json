@@ -12,6 +12,8 @@
     "angular-mocks": "~1.5.0",
     "html5-boilerplate": "^5.3.0",
     "angular-material": "^1.0.9",
-    "md-steppers": "^0.3.3"
+    "md-steppers": "^0.3.3",
+    "ng-table": "^1.0.0",
+    "bootstrap": "^3.3.7"
   }
 }
